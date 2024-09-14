@@ -1,5 +1,7 @@
 import React from "react";
+import Image from 'next/image';
 import { styled } from "../../stitches.config";
+import logo from "../../assets/logo.png";
 
 const TopbarStyled = styled("div", {
     display: "flex",
@@ -25,8 +27,8 @@ const TopbarStyled = styled("div", {
 const Topbar = () => {
     return (
         <TopbarStyled>
-            <h1>Logo</h1>
-            <button>Harburguer btn</button>
+            <Image src={logo} alt="nightsky icon" width={50} height={50} />
+            <button>Harburguer btn</button>  
         </TopbarStyled>
     );
 };
