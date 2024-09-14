@@ -13,7 +13,6 @@ const dynamicBoxShadow = css({
 });
 
 const GlowBox = styled('div', {
-    position: 'absolute',
     transition: 'box-shadow 0.3s ease',
     width: '0.1px',
     height: '0.1px',
@@ -32,7 +31,7 @@ const GlowBox = styled('div', {
     },
 });
 
-const GlowEffect = ({ color, position, size }) => {
+const GlowEffect = ({ color, position, size, relative }) => {
     const boxShadowStyle = {
         boxShadow: `0 0 ${size || 300}px ${size || 300}px ${
             color === 'red' ? 'rgba(255, 0, 0, 0.342)' :
@@ -41,6 +40,7 @@ const GlowEffect = ({ color, position, size }) => {
         }`,
         top: `${position.top || 0}`,
         left: `${position.left || 0}`,
+        position: relative ? 'relative' : 'absolute',
     };
 
     return (

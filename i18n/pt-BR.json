@@ -1,4 +1,9 @@
 {
-    "homeTitle": "NightSky",
-    "homeSubtitle": "Bem-vindo ao Projeto NightSky,",
-}
+    "NightSky": "NightSky",
+    "homeSubtitle": "Bem-vindo ao Projeto NightSky, uma iniciativa de código aberto criada para ampliar as funcionalidades da rede social BlueSky. Com uma nova plataforma que oferece suporte a plugins e recursos avançados de personalização, permitindo uma experiência mais flexível e personalizada.",    
+    "pluginsDescription": "Plugins são pacotes de modificações que podem ser instalados no NightSky para adicionar novas funcionalidades e personalizações. Cada plugin é desenvolvido por terceiros e pode ser instalado e gerenciado facilmente através do app.",
+    "startNow": "Comece agora",
+    "account": "Conta",
+    "createdBy": "Criado por Rafael B. Dias",
+    "knowMore": "Saiba mais"
+}   
