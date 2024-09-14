@@ -47,7 +47,7 @@ a {
     min-height: 100vh;
     flex-direction: column;
     align-items: flex-start;
-    padding-bottom: 60px;
+    padding-bottom: 50vh;
     margin: 0 auto;
     max-width: 65%;
     align-self: center;

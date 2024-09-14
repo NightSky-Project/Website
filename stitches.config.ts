@@ -9,6 +9,7 @@ export const { styled, getCssText } = createStitches({
             tertiary: colors.tertiary,
             surface: colors.surface,
             background: colors.background,
+            backgroundTransparent: colors.backgroundTransparent,
             foreground: colors.foreground,
         },
         fontSizes: {

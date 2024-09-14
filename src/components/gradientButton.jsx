@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { styled } from '../../stitches.config';
+import i18n from "@/i18n";
 
 const Button = styled("button", {
     padding: "0.2rem",
@@ -32,6 +33,11 @@ const Button = styled("button", {
         background: '$colors$foreground',
         color: '$colors$background',
     },
+    '&:disabled': {
+        background: '$colors$background',
+        color: '$colors$surface',
+        cursor: 'not-allowed',
+    },
 });
 
 export default function GradientButton({ children, ...props }) {
@@ -40,8 +46,10 @@ export default function GradientButton({ children, ...props }) {
             onClick={
                 () => window.open(props.href, '_blank')
             }
+            disabled={!props.enabled}
         >
             {children}
+            {props.enabled ? '' : ` (${i18n["soon"]})`}
         </Button>
     );
 }

@@ -4,8 +4,6 @@ import {createdBy} from "../../i18n/pt-BR.json";
 import Image from "next/image";
 import githubLogo from "../../assets/github-mark-white.svg";
 
-const width = typeof window !== "undefined" ? window.screen.width : 1024;
-
 const FooterStyled = styled("footer", {
     display: "flex",
     justifyContent: "center",

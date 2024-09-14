@@ -33,7 +33,7 @@ const GlowBox = styled('div', {
 
 const GlowEffect = ({ color, position, size, relative }) => {
     const boxShadowStyle = {
-        boxShadow: `0 0 ${size || 300}px ${size || 300}px ${
+        boxShadow: `0 0 ${size || 5}rem ${size || 5}rem ${
             color === 'red' ? 'rgba(255, 0, 0, 0.342)' :
             color === 'golden' ? 'rgba(255, 215, 0, 0.342)' :
             'rgba(71, 64, 133, 0.342)'

@@ -3,7 +3,8 @@ const colors = {
     secondary: '#8aa6ff',
     tertiary: '#43434949',
     surface: '#29292e',
-    background: '#121214',
+    background: 'rgb(18, 18, 20)',
+    backgroundTransparent: 'rgba(18, 18, 20, 0.0)',
     foreground: '#1a1a1e',
 };
 
