@@ -2,7 +2,7 @@ import React from "react";
 import Image from 'next/image';
 import { styled } from "../../stitches.config";
 import logo from "../../assets/logo.png";
-import {account} from "../../i18n/pt-BR.json"
+import accountIcon from "../../assets/account-avatar.svg";
 
 const TopbarStyled = styled("div", {
     display: "flex",
@@ -20,7 +20,7 @@ const TopbarStyled = styled("div", {
     zIndex: 1000,
 
     '@media (max-width: 768px)': {
-        padding: "10px",
+        padding: "15px",
         height: "60px",
     },
 });
@@ -33,19 +33,18 @@ const TopNavText = styled("a", {
     margin: 0,
 });
 
-async function isLogged() {
-    // Check if user is logged in
-    return false;
-}
 
 const Topbar = () => {
     return (
         <TopbarStyled>
-            <div style={{
-                maxWidth: "0.8rem",
+            <a href="/" style={{
+                maxWidth: "0.9rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
             }}>
                 <Image src={logo} alt="nightsky icon" width={50} height={50} layout="responsive" />
-            </div>
+            </a>
             <nav style={{
                 display: "flex",
                 alignItems: "center",
@@ -59,9 +58,20 @@ const Topbar = () => {
                     href="#"
                 >Dashboard</TopNavText>
 
-                <TopNavText
-                    href={isLogged() ? "#" : "/#login"}
-                >{!isLogged() ? account : "Login"}</TopNavText> 
+                <a href="/login" style={{
+                    display: "flex",
+                    maxWidth: "0.7rem",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginLeft: "0.5rem",
+
+                    '@media (max-width: 768px)': {
+                        display: "none",
+                    },
+                }}>
+                    <Image src={accountIcon} alt="account icon" width={50} height={50} layout="responsive" />
+                </a>
+                
             </nav>
         </TopbarStyled>
     );

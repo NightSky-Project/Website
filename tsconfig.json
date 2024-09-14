@@ -18,9 +18,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*", "./i18n/*"]
+      "@/*": ["./src/*", "./i18n/*", "./assets/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "**/*.js", "**/*.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "**/*.js", "**/*.jsx", "**/*.json", "**/*.svg"],
   "exclude": ["node_modules"]
 }
