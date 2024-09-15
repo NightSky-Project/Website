@@ -40,7 +40,7 @@ const Button = styled("button", {
     },
 });
 
-export default function GradientButton({ children, ...props }) {
+export default function GradientButton({ children,enabled=true, ...props }) {
     return (
         <Button {...props} 
             onClick={
