@@ -58,16 +58,15 @@ const Topbar = () => {
                     href="#"
                 >Dashboard</TopNavText>
 
-                <a href="/login" style={{
+                <a href="/api/auth" style={{
                     display: "flex",
-                    maxWidth: "0.7rem",
+                    maxWidth: "0.9rem",
                     justifyContent: "center",
                     alignItems: "center",
                     marginLeft: "0.5rem",
-
-                    '@media (max-width: 768px)': {
-                        display: "none",
-                    },
+                    borderRadius: "50%",
+                    // backgroundColor: "rgba(255, 255, 255, 0.04)",
+                    padding: "0.1rem",
                 }}>
                     <Image src={accountIcon} alt="account icon" width={50} height={50} layout="responsive" />
                 </a>

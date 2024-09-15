@@ -2,12 +2,11 @@ import React from "react";
 import { styled } from "../../../../stitches.config";
 import Topbar from "@/components/topbar";
 import Footer from "@/components/footer";
-import githubLogo from "../../../../assets/github-mark-white.svg";
-import Image from "next/image";
+import SignInButton from "@/components/signInButton";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import SignInButton from "@/components/signInButton";
+import i18n from "@/i18n";
 
 const Header = styled("header", {
     padding: "1rem",
@@ -19,6 +18,12 @@ const Text = styled("p", {
     fontFamily: 'var(--font-geist-mono)',
     variants: {
         size: {
+            extraSmall: {
+                fontSize: '$extraSmall',
+            },
+            small: {
+                fontSize: '$small',
+            },
             0: {
                 fontSize: '$0',
             },
@@ -47,23 +52,45 @@ const LoginContainer = styled("div", {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
+    marginTop: '2rem',
+    marginBottom: '2rem',
 });
 
-const Login = async () => {
-    const session = await getServerSession(options);
-    if (session) {
-        redirect("/profile");
-    }
+const DescriptionContainer = styled("div", {
+
+});
+
+const Login = () => {
+    getServerSession(options).then((session) => {
+        if (session) {
+            redirect("/dashboard");
+        }
+    });
+
+
     return (
         <>
             <Topbar />
-            <Header>
-                <Text size={2}>Login with GitHub</Text>
-            </Header>
-                <LoginContainer>
-                    <SignInButton />
-                </LoginContainer>
+            <div className="page">
+                <Header>
+                    <Text size={2}>{i18n["LoginWithGitHub"]}</Text>
+                    <DescriptionContainer>
+                        <Text size={0}>{i18n["LoginDescription"]}</Text>
+                        <Text size={0} >{i18n["LoginDescription2"]}</Text>
+                    </DescriptionContainer>
+                </Header>
+                <main style={{display: 'grid', width: '100%'}}>
+                    <LoginContainer>
+                        <SignInButton />
+                    </LoginContainer>
+                    {/* <DescriptionContainer style={{
+                        padding: '1rem',
+                    }}>
+                        <Text size={'extraSmall'} colors={'primary'}>{i18n["Terms"]}</Text>
+                        <Text size={'extraSmall'} colors={'primary'}>{i18n["Terms2"]}</Text>
+                    </DescriptionContainer> */}
+                </main>
+            </div>
             <Footer />
         </>
     );

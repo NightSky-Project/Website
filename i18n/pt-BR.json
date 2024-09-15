@@ -13,5 +13,10 @@
     "securityDescription": "O NightSky é uma plataforma de código aberto e, por isso, é possível verificar o código-fonte e garantir que não há nada de malicioso. Além disso, o app não coleta dados pessoais dos usuários.",
     "securityDescription2": "Todos os plugins disponíveis no repositório oficial do NightSky são verificados e aprovados pela equipe de desenvolvimento e devem seguir um conjunto de regras para garantir ao máximo a segurança dos usuários.",
     "downloadNow": "📥 Baixe agora",
-    "soon": "em breve"
+    "soon": "em breve",
+    "LoginWithGitHub": "Entrar com GitHub",
+    "LoginDescription": "Entre com sua conta do GitHub para começar a publicar e gerenciar seus plugins no NightSky.",
+    "LoginDescription2": "O NightSky utiliza o GitHub para autenticação e gerenciamento de plugins diretamente do seu repositório.",
+    "Terms": "• Ao entrar, você concorda em permitir que o NightSky acesse seu repositório público do GitHub para gerenciar seus plugins.",
+    "Terms2": "• O NightSky não coleta dados pessoais dos usuários e todas as informações sensíveis como tokens de acesso são armazenadas criptografadas."
 }   
