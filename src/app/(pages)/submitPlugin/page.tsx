@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SubmitPluginPage: React.FC = () => {
+const SubmitPlugin = () => {
     return (
         <div>
             <h1>Submit a Plugin</h1>
@@ -23,4 +23,4 @@ const SubmitPluginPage: React.FC = () => {
     );
 };
 
-export default SubmitPluginPage;
+export default SubmitPlugin;

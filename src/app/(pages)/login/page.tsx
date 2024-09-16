@@ -7,45 +7,11 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import i18n from "@/i18n";
+import Text from "@/components/text";
 
 const Header = styled("header", {
     padding: "1rem",
     color: '$primary',
-});
-
-const Text = styled("p", {
-    color: '$primary',
-    fontFamily: 'var(--font-geist-mono)',
-    variants: {
-        size: {
-            extraSmall: {
-                fontSize: '$extraSmall',
-            },
-            small: {
-                fontSize: '$small',
-            },
-            0: {
-                fontSize: '$0',
-            },
-            1: {
-                fontSize: '$1',
-            },
-            2: {
-                fontSize: '$2',
-            },
-            3: {
-                fontSize: '$3',
-            },
-        },
-        colors: {
-            primary: {
-                color: '$primary',
-            },
-            secondary: {
-                color: '$secondary',
-            }
-        },
-    },
 });
 
 const LoginContainer = styled("div", {

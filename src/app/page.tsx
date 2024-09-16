@@ -8,6 +8,7 @@ import GlowEffect from "@/components/glowEffect";
 import Stars from "@/components/stars";
 import GearAnimated from "@/components/gearAnimated";
 import KnowMoreDiv from "@/components/knowMoreDiv";
+import Text from "@/components/text";
 
 
 const Header = styled("header", {
@@ -21,34 +22,6 @@ const DescriptionContainer = styled("div", {
     marginTop: '-0.5rem',
 });
 
-const Text = styled("p", {
-    color: '$primary',
-    fontFamily: 'var(--font-geist-mono)',
-    variants: {
-        size: {
-            0: {
-                fontSize: '$0',
-            },
-            1: {
-                fontSize: '$1',
-            },
-            2: {
-                fontSize: '$2',
-            },
-            3: {
-                fontSize: '$3',
-            },
-        },
-        colors: {
-            primary: {
-                color: '$primary',
-            },
-            secondary: {
-                color: '$secondary',
-            }
-        },
-    },
-});
 
 const GradientText = styled(Text, {
     background: 'linear-gradient(130deg, #f6bf75, #d77185, #8766ac, #4150b1)',
