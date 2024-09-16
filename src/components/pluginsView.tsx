@@ -14,7 +14,7 @@ const Grid = styled("div", {
     gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
     gap: '0.5rem',
     marginTop: '0.5rem',
-    borderRadius: '5px',
+    borderRadius: '10px',
     padding: '0.2rem',
     paddingBottom: '3rem',
     border: '1px solid $tertiary',

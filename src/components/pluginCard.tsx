@@ -7,7 +7,6 @@ import Text from "./text";
 import publicIcon from "../../assets/public.png";
 import pendingIcon from "../../assets/pending.png";
 import privateIcon from "../../assets/private.png";
-import Image from "next/image";
 import ImageResponsive from "./ImageResponsive";
 
 const Card = styled("div", {
@@ -36,6 +35,23 @@ const SpacedDiv = styled("div", {
     width: '100%',
 });
 
+const CategoriesGrid = styled("div", {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '5px',
+    width: '100%',
+});
+
+const Category = styled("div", {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '5px',
+    padding: '2px',
+    border: '1px solid $tertiary',
+    boxShadow: '0 0 0.5px 0.3px $colors$secondary',
+});
+
 const PluginCard = ({plugin}: {plugin: Plugin}) => {
     return (
         <Card onClick={() => window.open(`/editPlugin/${plugin.plugin_id}`, '_self')}>
@@ -59,6 +75,13 @@ const PluginCard = ({plugin}: {plugin: Plugin}) => {
                 </SpacedDiv>
                 <Text size='extraSmall' colors="secondary">{plugin.downloads} downloads</Text>
             </div>
+            <CategoriesGrid>
+                {plugin.categories.map((category, index) => (
+                    <Category key={index}>
+                        <Text style={{fontSize: '0.18rem'}}>{category}</Text>
+                    </Category>
+                ))}
+            </CategoriesGrid>
             <SpacedDiv>
                 <Text size='extraSmall'>{new Date(plugin.created_at).toLocaleDateString('pt-BR')}</Text>
                 <Text size='extraSmall'>version {plugin.version}</Text>

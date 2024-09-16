@@ -102,7 +102,7 @@ const Dashboard = () => {
                                         />
                                     </StatusDescription>
                                 </StatusDescriptionContainer>
-                                <CreatePluginButton href='/submitPlugin '>
+                                <CreatePluginButton href='/editPlugin '>
                                     <Text size='extraSmall' style={{
                                         fontFamily: 'var(--font-geist-sans)',
                                     }}>Novo plugin</Text>
