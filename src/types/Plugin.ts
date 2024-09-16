@@ -11,6 +11,7 @@ type Plugin = {
     downloads: number;
     status: number;
     version: number;
+    description: string;
 }
 
 export default Plugin;

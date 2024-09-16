@@ -10,6 +10,13 @@ export const fetchStorePlugins = async (githubAccessToken: string) => {
     return response.data;
 };
 
+export const fetchGithubRepos = async (githubAccessToken: string) => {
+    const response = await axios.get(`${API_URL}/user/repos`, {
+        params: { github_access_token: githubAccessToken }
+    });
+    return response.data;
+}
+
 export const fetchCategories = async () => {
     const response = await axios.get(`${API2_URL}/plugins/categories`)
     return response.data;
