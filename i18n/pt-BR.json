@@ -1,6 +1,6 @@
 {
     "NightSky": "NightSky",
-    "homeSubtitle": "Bem-vindo ao Projeto NightSky, uma iniciativa de código aberto criada para ampliar as funcionalidades da rede social BlueSky. Com uma nova plataforma que oferece suporte a plugins e recursos avançados de personalização, permitindo uma experiência mais flexível e personalizada.",    
+    "homeSubtitle": "Bem-vindo ao Projeto NightSky, uma iniciativa de código aberto criada para ampliar as funcionalidades da rede social BlueSky. Com uma nova plataforma que oferece suporte a plugins e recursos avançados de personalização.",    
     "pluginsDescription": "Plugins são pacotes de modificações que podem ser instalados no NightSky para adicionar novas funcionalidades e personalizações. Cada plugin é desenvolvido por terceiros e pode ser instalado e gerenciado facilmente através do app.",
     "startNow": "Comece agora",
     "account": "Conta",
@@ -8,7 +8,7 @@
     "knowMore": "Saiba mais",
     "personalization": "Personalização",
     "personalizationDescription": "Na tela de gerenciamento de plugins do app, você pode instalar, desativar e organizar a prioridade dos plugins, além de selecionar quais módulos de cada deseja ativar.",
-    "personalizationDescription2": "Além disso, por padrão, o NightSky já oferece algumas opções de personalização e melhorias de usabilidade que podem ser ativadas ou desativadas a qualquer momento.",
+    "personalizationDescription2": "Por padrão, o NightSky já oferece algumas opções de personalização e melhorias de usabilidade que podem ser ativadas ou desativadas a qualquer momento.",
     "security": "Segurança",
     "securityDescription": "O NightSky é uma plataforma de código aberto e, por isso, é possível verificar o código-fonte e garantir que não há nada de malicioso. Além disso, o app não coleta dados pessoais dos usuários.",
     "securityDescription2": "Todos os plugins disponíveis no repositório oficial do NightSky são verificados e aprovados pela equipe de desenvolvimento e devem seguir um conjunto de regras para garantir ao máximo a segurança dos usuários.",

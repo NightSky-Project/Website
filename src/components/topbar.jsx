@@ -55,7 +55,7 @@ const Topbar = () => {
                 >Plugins</TopNavText>
 
                 <TopNavText
-                    href="#"
+                    href="/dashboard"
                 >Dashboard</TopNavText>
 
                 <a href="/api/auth" style={{

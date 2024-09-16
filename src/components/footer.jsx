@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "../../stitches.config";
-import {createdBy} from "../../i18n/pt-BR.json";
+import i18n  from "../../i18n/i18n";
 import Image from "next/image";
 import githubLogo from "../../assets/github-mark-white.svg";
 
@@ -38,7 +38,7 @@ const Footer = () => {
     return (
         <FooterStyled>
             <Text>
-                {createdBy}
+                {i18n["createdBy"]}
             </Text>
             <a href="www.github.com/Rafael-BD" target="_blank" rel="noreferrer"
                 style={{
