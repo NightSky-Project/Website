@@ -5,7 +5,7 @@ import { styled } from "../../stitches.config";
 import i18n from "@/i18n";
 import { fetchStorePlugins } from "@/services/pluginsApi";
 import getSession from '@/utils/getSession';
-import Plugin from '@/types/Plugin';
+import {Plugin} from '@/types/Plugin';
 import genFakePluginData from '@/utils/genFakePluginData';
 import PluginCard from './pluginCard';
 

@@ -8,7 +8,7 @@ import Topbar from '@/components/topbar';
 import Footer from '@/components/footer';
 import { createPlugin, fetchCategories, fetchGithubRepos, fetchStorePlugins, updatePlugin } from '@/services/pluginsApi';
 import getSession from '@/utils/getSession';
-import Plugin from '@/types/Plugin';
+import {Plugin, Repo} from '@/types/Plugin';
 
 const Header = styled("header", {
     marginBottom: '1rem',
@@ -152,15 +152,8 @@ const SubmitButton = styled("button", {
     border: '1px solid $tertiary',
 });
 
-type Repo = {
-    id: string;
-    name: string;
-    description: string;
-    default_branch: string;
-};
-
 const EditPlugin = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [categories, setCategories] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [name, setName] = useState<string>('');
@@ -168,35 +161,52 @@ const EditPlugin = () => {
     const [repoSelected, setRepoSelected] = useState<Repo | null>(null);
     const [userRepos, setUserRepos] = useState<Repo[]>([]);
     const [missingFields, setMissingFields] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const load = async () => {
-            await fetchCategories().then(setCategories);
-            const session = await getSession();
-            if (session?.accessToken) {
-                // fetch user repos
-                const repos = await fetchGithubRepos(session.accessToken) as Repo[];
-                setUserRepos(repos);
+            try {
+                const categories = await fetchCategories();
+                setCategories(categories);
 
-                if(id){
-                    await fetchStorePlugins(session.accessToken).then((plugins) => {
+                const session = await getSession();
+                if (session?.accessToken) {
+                    const repos = await fetchGithubRepos(session.accessToken) as Repo[];
+                    setUserRepos(repos);
+
+                    if (id) {
+                        const plugins = await fetchStorePlugins(session.accessToken);
                         const foundPlugin = plugins.find((plugin: Plugin) => plugin.plugin_id.toString() === id[0]);
                         if (foundPlugin) {
                             setName(foundPlugin.plugin_name);
                             setBranch(foundPlugin.branch);
-                            const repoDescription = repos.find((repo: Repo) => repo.id.toString() === foundPlugin.repo_id)?.description;
-                            setRepoSelected({id: foundPlugin.repo_id, name: foundPlugin.plugin_name, description: repoDescription || '', default_branch: foundPlugin.branch});
+                            const repo =  repos.find((repo: Repo) => repo.id.toString() === foundPlugin.repo_id);
+                            const repoDescription = repo?.description;
+                            const repoName = repo?.name;
+                            setRepoSelected({
+                                id: foundPlugin.repo_id,
+                                name: repoName || '',
+                                description: repoDescription || '',
+                                default_branch: foundPlugin.branch,
+                                html_url: '',
+                                owner: { login: '' },
+                            });
                             setSelectedCategories(foundPlugin.categories);
                         }
-                    });
+                    }
                 }
+                setLoading(false);
+            } catch (error) {
+                console.error('Error loading data', error);
             }
-        }
+        };
         load();
     }, [id]);
 
     const handleAddCategory = (category: string) => {
-        setSelectedCategories([...selectedCategories, category]);
+        if (!selectedCategories.includes(category)) {
+            setSelectedCategories([...selectedCategories, category]);
+        }
     };
 
     const handleRemoveCategory = (category: string) => {
@@ -219,56 +229,55 @@ const EditPlugin = () => {
             return;
         }
         setMissingFields([]);
-        const session = await getSession();
-        if (session?.accessToken) {
-            const plugin = {
-                github_access_token: session.accessToken,
-                repo_id: repoSelected.id,
-                name: name,
-                branch: branch,
-                categories: selectedCategories,
-            };
-            
-            if(!id){
-                await createPlugin(plugin.github_access_token, plugin.name, plugin.repo_id, plugin.categories, plugin.branch).then((success) => {
-                    if (success) {
-                        window.location.href = '/dashboard';
-                    }         
-                }).catch((error) => {
-                    alert('Error creating plugin');
-                    console.error(error);
-                });
+        try {
+            const session = await getSession();
+            if (session?.accessToken) {
+                const plugin = {
+                    github_access_token: session.accessToken,
+                    plugin_id: id ? id[0] : '-1',
+                    repo_id: repoSelected.id,
+                    name: name,
+                    branch: branch,
+                    categories: selectedCategories,
+                };
+                const success = id
+                    ? await updatePlugin(plugin.github_access_token, plugin.name, plugin.plugin_id, plugin.repo_id, plugin.categories, plugin.branch)
+                    : await createPlugin(plugin.github_access_token, plugin.name, plugin.repo_id, plugin.categories, plugin.branch);
+
+                if (success) {
+                    window.location.href = '/dashboard';
+                }
             }
-            else{
-                await updatePlugin(plugin.github_access_token, plugin.name, plugin.repo_id, plugin.categories, plugin.branch).then((success) => {
-                    if (success) {
-                        window.location.href = '/dashboard';
-                    }         
-                }).catch((error) => {
-                    alert('Error updating plugin');
-                    console.error(error);
-                });
-            }
+        } catch (error) {
+            console.error(error);
+            alert(`Error ${id ? 'updating' : 'creating'} plugin`);
+            window.location.href = '/dashboard';
         }
     };
 
     return (
         <>
             <Topbar />
-                <div className='page-wide'>
-                    <Header>
-                        <Text size='2' as={'h1'} >Create Plugin</Text>
-                    </Header>
-                    <main style={{display: 'grid', width: '100%', height: '100%', alignContent: 'center'}}>
+            <div className='page-wide'>
+                <Header>
+                    <Text size='2' as='h1'>{id ? 'Edit Plugin' : 'Create Plugin'}</Text>
+                </Header>
+                {loading ? (
+                    <div>Loading...</div>
+                ) : (
+                    <main style={{ display: 'grid', width: '100%', height: '100%', alignContent: 'center' }}>
                         <Form>
-                            <Input borderType={missingFields.includes('name') ? 2 : 1}
-                                size={1} placeholder='Plugin Name' value={name} onChange={(e) => setName(e.target.value)} />
+                            <Input
+                                borderType={missingFields.includes('name') ? 2 : 1}
+                                size={1}
+                                placeholder='Plugin Name'
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
                             <Categories>
-                                {
-                                    selectedCategories.length === 0 && (
-                                        <Text size='small' style={{opacity: 0.3}}>No categories selected</Text>
-                                    )
-                                }
+                                {selectedCategories.length === 0 && (
+                                    <Text size='small' style={{ opacity: 0.3 }}>No categories selected</Text>
+                                )}
                                 {selectedCategories.map((category) => (
                                     <CategoryTag key={category}>
                                         <Text size='small'>{category}</Text>
@@ -276,48 +285,52 @@ const EditPlugin = () => {
                                     </CategoryTag>
                                 ))}
                             </Categories>
-                            <Select borderType={missingFields.includes('category') ? 2 : 1}
-                                onChange={(e) => handleAddCategory(e.target.value)} value="">
+                            <Select
+                                borderType={missingFields.includes('category') ? 2 : 1}
+                                onChange={(e) => handleAddCategory(e.target.value)}
+                                value=""
+                            >
                                 <option value="" disabled>Select Category</option>
                                 {categories.filter(category => !selectedCategories.includes(category)).map((category) => (
                                     <option key={category} value={category}>{category}</option>
                                 ))}
                             </Select>
-                            <div style={{width: '100%'}} />
-                            <hr style={{
-                                width: '100%',
-                                border: '1px solid $tertiary',
-                                marginBlockEnd: '0.3rem',
-                            }} />
-                            <Select borderType={missingFields.includes('repo') ? 2 : 1}
-                                size={2} onChange={(e) => setRepoSelected(userRepos.find(repo => repo.id === e.target.value) || null)} value={repoSelected?.id || ''}>
+                            <div style={{ width: '100%' }} />
+                            <hr style={{ width: '100%', border: '1px solid $tertiary', marginBlockEnd: '0.3rem' }} />
+                            <Select
+                                borderType={missingFields.includes('repo') ? 2 : 1}
+                                size={2}
+                                value={repoSelected?.id || ''}
+                            >
                                 <option value="" disabled>Select Repository</option>
                                 {userRepos.map((repo: Repo) => (
-                                    <option key={repo.id} value={repo.id} onClick={
-                                        () => handleSelectRepo(repo)
-                                    }>{repo.name}</option>
+                                    <option key={repo.id} value={repo.id} onClick={() => handleSelectRepo(repo)}>{repo.name}</option>
                                 ))}
                             </Select>
-                            {
-                                repoSelected && (
-                                    <RepoInfo>
-                                        <Text size='small'>{userRepos.find(repo => repo.id === repoSelected.id)?.name}</Text>
-                                        <Text size='small'>{userRepos.find(repo => repo.id === repoSelected.id)?.description}</Text>
-                                    </RepoInfo>
-                                )
-                            }
-                            <div style={{width: '100%'}} />
-                            {
-                                repoSelected && (
-                                    <Input borderType={missingFields.includes('branch') ? 2 : 1}
-                                        size={3} placeholder='Branch' value={branch} onChange={(e) => setBranch(e.target.value)} />
-                                )
-                            }
+                            <div style={{ width: '100%' }} />
+                            {repoSelected && (
+                                <RepoInfo>
+                                    <Text size='small'>{repoSelected.name}</Text>
+                                    <Text size='small'>{repoSelected.description}</Text>
+                                </RepoInfo>
+                            )}
+                            <div style={{ width: '100%' }} />
+                            {repoSelected && (
+                                <Input
+                                    borderType={missingFields.includes('branch') ? 2 : 1}
+                                    size={3}
+                                    placeholder='Branch'
+                                    value={branch}
+                                    onChange={(e) => setBranch(e.target.value)}
+                                />
+                            )}
                             <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
                         </Form>
                     </main>
-                </div>
-            <Footer/>
+                    )
+                }
+            </div>
+            <Footer />
         </>
     );
 };

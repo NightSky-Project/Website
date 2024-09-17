@@ -2,7 +2,7 @@
 import React from "react";
 import { styled } from "../../stitches.config";
 import i18n from "@/i18n";
-import Plugin from "@/types/Plugin";
+import {Plugin} from "@/types/Plugin";
 import Text from "./text";
 import publicIcon from "../../assets/public.png";
 import pendingIcon from "../../assets/pending.png";
@@ -14,7 +14,7 @@ const Card = styled("div", {
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    height: '2rem',
+    height: 'auto',
     padding: '10px',
     background: '$surface',
     color: '$primary',
@@ -40,6 +40,7 @@ const CategoriesGrid = styled("div", {
     flexWrap: 'wrap',
     gap: '5px',
     width: '100%',
+    padding: '8px 2px',
 });
 
 const Category = styled("div", {
