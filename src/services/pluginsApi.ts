@@ -24,7 +24,7 @@ export const fetchCategories = async () => {
 
 export const createPlugin = async (githubAccessToken: string, name: string, repoId: string, categories: string[], branch: string) => {
     const response = await axios.post(`${API_URL}/store/plugins`, {
-        github_access_token: githubAccessToken,///////////
+        github_access_token: githubAccessToken,
         name,
         repo_id: repoId,
         categories,
